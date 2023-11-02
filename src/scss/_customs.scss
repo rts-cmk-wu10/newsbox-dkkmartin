@@ -1,0 +1,28 @@
+@import '../../node_modules/bootstrap/scss/functions';
+
+// Background colors
+$body-bg: #f0f3f4;
+$body-bg-secondary: #c8d1d3;
+$body-bg-sand: #b9b0a2;
+
+// Primary colors
+$primary: #87bcbf;
+$success: #324755;
+$danger: #d95454;
+$info: #d97d54;
+
+// Text colors
+$custom-colors: (
+  'text-black': #1b1c20,
+  'text-slate': #6e8ca0,
+  'text-white': #ffffff,
+);
+
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/variables-dark';
+
+// Merge custom colors
+$theme-colors: map-merge($theme-colors, $custom-colors);
+@import '../../node_modules/bootstrap/scss/maps';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/root';
