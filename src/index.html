@@ -7,9 +7,20 @@
   </head>
   <body>
     <header class="container-fluid py-3 px-3 d-flex justify-content-between border-bottom">
-      <img src="assets/icons/OcticonInbox16.svg" alt="Archived articles" />
+      <button type="button" class="btn">
+        <img src="assets/icons/OcticonInbox16.svg" alt="Archived articles" />
+      </button>
       <h1 class="h1 fw-bold">Newsbox</h1>
-      <img src="assets/icons/TeenyiconsCogOutline.svg" alt="Settings" />
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"
+      >
+        <img src="assets/icons/TeenyiconsCogOutline.svg" alt="Settings" />
+      </button>
     </header>
     <main>
       <div class="container py-3">
@@ -150,6 +161,24 @@
             <div class="accordion-body"></div>
           </div>
         </div>
+      </div>
+
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasRight"
+        aria-labelledby="offcanvasRightLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">...</div>
       </div>
     </main>
   </body>
