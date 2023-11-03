@@ -22,7 +22,17 @@ $custom-colors: (
 $h1-font-size: 40px;
 $h2-font-size: 32px;
 
+//Accordian
+$accordion-button-active-bg: $body-bg-secondary;
+
 // Custom classes
+.bg-body-secondary {
+  background-color: $body-bg-secondary;
+}
+
+.bg-body-sand {
+  background-color: $body-bg-sand;
+}
 
 .section-header {
   font-size: 24px;
