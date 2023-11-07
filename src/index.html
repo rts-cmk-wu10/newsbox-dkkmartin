@@ -7,7 +7,13 @@
   </head>
   <body>
     <header class="container-fluid py-3 px-3 d-flex justify-content-between border-bottom">
-      <button type="button" class="btn p-0">
+      <button
+        class="btn p-0"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasLeft"
+        aria-controls="offcanvasLeft"
+      >
         <img src="assets/icons/OcticonInbox16.svg" alt="Archived articles" />
       </button>
       <h1 class="h1 fw-bold">Newsbox</h1>
@@ -162,7 +168,7 @@
           </div>
         </div>
       </div>
-
+      <!-- Right canvas -->
       <div
         class="offcanvas offcanvas-end"
         tabindex="-1"
@@ -178,9 +184,13 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="offcanvas-body bg-body-secondary d-flex flex-column align-items-center">
-          <h1 class="h1 fs-1 fw-bold text-primary">Manage</h1>
-          <p class="sub-title fs-5">Categories</p>
+        <div
+          class="offcanvas-body py-5 bg-body-secondary d-flex flex-column align-items-center justify-content-between"
+        >
+          <div class="d-flex flex-column align-items-center">
+            <h1 class="h1 fs-1 fw-bold text-primary">Manage</h1>
+            <p class="sub-title fs-5">Categories</p>
+          </div>
           <div class="container-fluid bg-body border rounded-4 p-0">
             <div class="container-fluid border-bottom py-3">
               <div
@@ -268,7 +278,30 @@
               </div>
             </div>
           </div>
+          <button
+            class="btn text-uppercase fw-light border border-secondary border-opacity-25 rounded-pill py-2 px-2"
+          >
+            toggle dark mode
+          </button>
         </div>
+      </div>
+      <!-- Left canvas -->
+      <div
+        class="offcanvas offcanvas-start"
+        tabindex="-1"
+        id="offcanvasLeft"
+        aria-labelledby="offcanvasLeftLabel"
+      >
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasLeftLabel">Archived</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body bg-body-secondary"></div>
       </div>
     </main>
   </body>

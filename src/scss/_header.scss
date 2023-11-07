@@ -7,3 +7,19 @@ header {
     margin-bottom: 0;
   }
 }
+
+//Settings header
+.offcanvas-header {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(32px, 1fr));
+
+  .offcanvas-title {
+    justify-self: center;
+    grid-column: 2 / 3;
+  }
+
+  button {
+    justify-self: end;
+    grid-column: 3 / 4;
+  }
+}

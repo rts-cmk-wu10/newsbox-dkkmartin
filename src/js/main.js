@@ -2,4 +2,6 @@
 import '../scss/styles.scss';
 
 // Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap';
+import 'bootstrap/js/dist/modal';
+import 'bootstrap/js/dist/offcanvas';
+import 'bootstrap/js/dist/collapse';
