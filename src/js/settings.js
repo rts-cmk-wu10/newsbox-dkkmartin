@@ -26,9 +26,32 @@ export default class Settings {
   }
 
   static settingsLoader() {
+    if (!Storage.loadFromStorage('settings')) {
+      const defaultSettings = [
+        {
+          name: 'flexSwitchCheckDefaultEuropa',
+          checked: true,
+        },
+        {
+          name: 'flexSwitchCheckDefaultHealth',
+          checked: true,
+        },
+        {
+          name: 'flexSwitchCheckDefaultSport',
+          checked: true,
+        },
+        {
+          name: 'flexSwitchCheckDefaultBusiness',
+          checked: true,
+        },
+        {
+          name: 'flexSwitchCheckDefaultTravel',
+          checked: true,
+        },
+      ];
+      Storage.saveToStorage('settings', defaultSettings);
+    }
     const localSettingsArray = Storage.loadFromStorage('settings');
-    console.log(localSettingsArray);
-    if (!localSettingsArray) return;
     localSettingsArray.forEach((obj) => {
       document.querySelector(`#${obj.name}`).checked = obj.checked;
     });
