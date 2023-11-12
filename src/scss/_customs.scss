@@ -26,6 +26,10 @@ $h2-font-size: 32px;
 $accordion-button-active-bg: $body-bg-secondary;
 
 // Custom classes
+.hidden {
+  display: none;
+}
+
 .bg-body-secondary {
   background-color: $body-bg-secondary;
 }

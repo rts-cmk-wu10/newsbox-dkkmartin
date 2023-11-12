@@ -3,24 +3,15 @@ import Storage from './storage';
 export default class Settings {
   static settingsSaver() {
     const settingsInputs = document.querySelectorAll('.settings__container > div > div > input');
-    const settingsArray = [];
+    const settingsArray = Storage.loadFromStorage('settings');
     settingsInputs.forEach((input) => {
       input.addEventListener('click', () => {
-        let found = false;
         settingsArray.forEach((obj) => {
           if (obj.name === input.id) {
             obj.checked = input.checked;
-            found = true;
+            Storage.saveToStorage('settings', settingsArray);
           }
         });
-        if (!found) {
-          const newSetting = {
-            name: input.id,
-            checked: input.checked,
-          };
-          settingsArray.push(newSetting);
-        }
-        Storage.saveToStorage('settings', settingsArray);
       });
     });
   }
@@ -51,13 +42,14 @@ export default class Settings {
       ];
       Storage.saveToStorage('settings', defaultSettings);
     }
-    const localSettingsArray = Storage.loadFromStorage('settings');
-    localSettingsArray.forEach((obj) => {
+    const settingsArray = Storage.loadFromStorage('settings');
+    settingsArray.forEach((obj) => {
       document.querySelector(`#${obj.name}`).checked = obj.checked;
     });
   }
+
+  static run() {
+    Settings.settingsLoader();
+    Settings.settingsSaver();
+  }
 }
-
-Settings.settingsSaver();
-
-window.addEventListener('DOMContentLoaded', Settings.settingsLoader);
