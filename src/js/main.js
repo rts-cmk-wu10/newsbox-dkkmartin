@@ -9,15 +9,17 @@ import 'bootstrap/js/dist/collapse';
 
 // Import scripts
 import Settings from './settings';
-import Index from './index';
+import Accordion from './accordion';
 
 const settingsInputs = document.querySelectorAll('.settings__container > div > div > input');
 
+// Run settings and accodion functions
 Settings.run();
-Index.run();
+Accordion.run();
 
+// Update accordions shown if there is a change in settings
 settingsInputs.forEach((input) => {
   input.addEventListener('click', () => {
-    Index.run();
+    Accordion.run();
   });
 });

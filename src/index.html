@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="accordion accordion-flush border hidden">
+      <div data-query="popular" class="accordion accordion-flush border border-bottom-0 hidden">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingOne">
             <button
@@ -55,7 +55,7 @@
               aria-expanded="true"
               aria-controls="flush-collapseOne"
             >
-              europe
+              Most popular
             </button>
           </h2>
           <div
@@ -64,12 +64,12 @@
             aria-labelledby="flush-headingOne"
             data-bs-parent="#accordionFlushExample"
           >
-            <div class="accordion-body"></div>
+            <div class="accordion-body px-0 py-0"></div>
           </div>
         </div>
       </div>
 
-      <div class="accordion accordion-flush border border-top-0 hidden">
+      <div data-query="europe" class="accordion accordion-flush border hidden">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingTwo">
             <button
@@ -80,7 +80,7 @@
               aria-expanded="true"
               aria-controls="flush-collapseTwo"
             >
-              health
+              europe
             </button>
           </h2>
           <div
@@ -89,12 +89,12 @@
             aria-labelledby="flush-headingTwo"
             data-bs-parent="#accordionFlushExample"
           >
-            <div class="accordion-body"></div>
+            <div class="accordion-body px-0 py-0"></div>
           </div>
         </div>
       </div>
 
-      <div class="accordion accordion-flush border border-top-0 hidden">
+      <div data-query="health" class="accordion accordion-flush border border-top-0 hidden">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingThree">
             <button
@@ -105,7 +105,7 @@
               aria-expanded="true"
               aria-controls="flush-collapseThree"
             >
-              sport
+              health
             </button>
           </h2>
           <div
@@ -114,12 +114,12 @@
             aria-labelledby="flush-headingThree"
             data-bs-parent="#accordionFlushExample"
           >
-            <div class="accordion-body"></div>
+            <div class="accordion-body px-0 py-0"></div>
           </div>
         </div>
       </div>
 
-      <div class="accordion accordion-flush border border-top-0 hidden">
+      <div data-query="sport" class="accordion accordion-flush border border-top-0 hidden">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingFour">
             <button
@@ -130,7 +130,7 @@
               aria-expanded="true"
               aria-controls="flush-collapseFour"
             >
-              business
+              sport
             </button>
           </h2>
           <div
@@ -139,12 +139,12 @@
             aria-labelledby="flush-headingFour"
             data-bs-parent="#accordionFlushExample"
           >
-            <div class="accordion-body"></div>
+            <div class="accordion-body px-0 py-0"></div>
           </div>
         </div>
       </div>
 
-      <div class="accordion accordion-flush border border-top-0 hidden">
+      <div data-query="business" class="accordion accordion-flush border border-top-0 hidden">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingFive">
             <button
@@ -155,7 +155,7 @@
               aria-expanded="true"
               aria-controls="flush-collapseFive"
             >
-              travel
+              business
             </button>
           </h2>
           <div
@@ -164,7 +164,32 @@
             aria-labelledby="flush-headingFive"
             data-bs-parent="#accordionFlushExample"
           >
-            <div class="accordion-body"></div>
+            <div class="accordion-body px-0 py-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-query="travel" class="accordion accordion-flush border border-top-0 hidden">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingSix">
+            <button
+              class="accordion-button collapsed card-title text-uppercase"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseSix"
+              aria-expanded="true"
+              aria-controls="flush-collapseSix"
+            >
+              travel
+            </button>
+          </h2>
+          <div
+            id="flush-collapseSix"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush-headingSix"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body px-0 py-0"></div>
           </div>
         </div>
       </div>
@@ -192,6 +217,23 @@
             <p class="sub-title fs-5">Categories</p>
           </div>
           <div class="settings__container container-fluid bg-body border rounded-4 p-0">
+            <div class="container-fluid border-bottom py-3">
+              <div
+                class="form-check form-switch form-check-reverse d-flex justify-content-between align-items-center"
+              >
+                <label
+                  class="fs-5 form-check-label text-uppercase card-title"
+                  for="flexSwitchCheckDefaultPopular"
+                  >Most popular</label
+                >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="flexSwitchCheckDefaultPopular"
+                />
+              </div>
+            </div>
             <div class="container-fluid border-bottom py-3">
               <div
                 class="form-check form-switch form-check-reverse d-flex justify-content-between align-items-center"

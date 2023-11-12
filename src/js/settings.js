@@ -1,6 +1,7 @@
 //@ts-check
 import Storage from './storage';
 export default class Settings {
+  // Saves settings when inputs are clicked
   static settingsSaver() {
     const settingsInputs = document.querySelectorAll('.settings__container > div > div > input');
     const settingsArray = Storage.loadFromStorage('settings');
@@ -16,9 +17,15 @@ export default class Settings {
     });
   }
 
+  // Loads settings from localstorage
+  // Create a default setting if no localstorage
   static settingsLoader() {
     if (!Storage.loadFromStorage('settings')) {
       const defaultSettings = [
+        {
+          name: 'flexSwitchCheckDefaultPopular',
+          checked: false,
+        },
         {
           name: 'flexSwitchCheckDefaultEuropa',
           checked: true,
