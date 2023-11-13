@@ -125,10 +125,6 @@ export default class Accordion {
     });
   }
 
-  static accordionArticleRemover(article) {
-    article.parentElement.remove();
-  }
-
   static run() {
     this.accordionShower();
     this.accordionContent();

@@ -1,4 +1,4 @@
-import Accordion from './accordion';
+import Archive from './archive';
 
 export default class Touch {
   static touchSwipe() {
@@ -16,8 +16,8 @@ export default class Touch {
         const maxSlideLeft = -120;
         const translatedX = Math.max(deltaX, maxSlideLeft);
 
+        // Only allow swipe to the left
         if (translatedX < 0) {
-          // Only allow translation to the left
           article.style.transform = `translateX(${translatedX}px)`;
           article.nextElementSibling.style.transform = `translateX(${translatedX}px)`;
         }
@@ -50,7 +50,7 @@ export default class Touch {
     article.style.transform = 'translateX(-35%)';
     article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out';
     article.nextElementSibling.style.transform = 'translateX(-100%)';
-    Accordion.accordionArticleRemover(article);
+    Archive.articleArchive(article);
   }
 
   static resetTransform(article) {
