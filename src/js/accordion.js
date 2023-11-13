@@ -1,5 +1,6 @@
 import Storage from './storage';
 import API from './articleFetch';
+import Touch from './touch';
 
 export default class Accordion {
   // Controls which accordions are shown
@@ -22,9 +23,9 @@ export default class Accordion {
 
     // When accordion is clicked i check if it has been clicked before
     // If not it runs appendData and marks the accordion as clicked
-    function handleAccordionClick(accordion, searchFunction) {
+    async function handleAccordionClick(accordion, searchFunction) {
       if (accordion.dataset.hasBeenClicked === 'true') return;
-      appendData(accordion, searchFunction);
+      await appendData(accordion, searchFunction);
       accordion.dataset.hasBeenClicked = 'true';
     }
 
@@ -38,15 +39,22 @@ export default class Accordion {
       if (accordion.dataset.query === 'popular') {
         articles.results.forEach((article) => {
           const newArticle = document.createElement('article');
-          newArticle.classList.add('border-bottom', 'py-3', 'px-4');
+          newArticle.classList.add('border-bottom');
           newArticle.innerHTML = `
-          <a class="accordion-article" target="_blank" href="${article.url}">
-            <img class="rounded-circle object-fit-fill" src="${article.media[0]?.['media-metadata'][0].url}" alt="Thumbnail for article"></img>
+          <a class="accordion-article px-4 py-3" target="_blank" href="${article.url}">
+            <img class="rounded-circle object-fit-fill" src="${
+              article.media[0]?.['media-metadata'][0].url
+                ? article.media[0]?.['media-metadata'][0].url
+                : './assets/icons/TwemojiNewspaper.svg'
+            }" alt="Thumbnail for article"></img>
             <div>
               <h3 class="card-title">${article.title}</h3>
               <p class="card-subtitle">${article.abstract}</p>
             </div>
           </a>
+          <div class="accordion-article-swipeleft">
+            <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
+          </div>
         `;
           accordionBody.appendChild(newArticle);
         });
@@ -56,7 +64,11 @@ export default class Accordion {
           newArticle.classList.add('border-bottom', 'py-3', 'px-4');
           newArticle.innerHTML = `
           <a class="accordion-article" target="_blank" href="${article.web_url}">
-            <img class="rounded-circle object-fit-fill" src="https://www.nytimes.com/${article.multimedia[17]?.url}" alt="Thumbnail for article"></img>
+            <img class="rounded-circle object-fit-fill" src="${
+              article.multimedia[17]?.url
+                ? `https://www.nytimes.com/${article.multimedia[17]?.url}`
+                : './assets/icons/TwemojiNewspaper.svg'
+            }" alt="Thumbnail for article"></img>
             <div>
               <h3 class="card-title">${article.headline.main}</h3>
               <p class="card-subtitle">${article.abstract}</p>
@@ -70,25 +82,33 @@ export default class Accordion {
 
     accordions.forEach((accordion) => {
       accordion.dataset.hasBeenClicked = 'false';
-      accordion.addEventListener('click', () => {
+      accordion.addEventListener('click', async () => {
         switch (accordion.dataset.query) {
           case 'europe':
-            handleAccordionClick(accordion, API.searchArticlesEurope);
+            await handleAccordionClick(accordion, API.searchArticlesEurope);
+            Touch.run();
             break;
           case 'health':
-            handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'health'));
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'health'));
+            Touch.run();
             break;
           case 'sport':
-            handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'sports'));
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'sports'));
+            Touch.run();
             break;
           case 'business':
-            handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'business'));
+            await handleAccordionClick(accordion, () =>
+              API.searchArticles('news_desk', 'business')
+            );
+            Touch.run();
             break;
           case 'travel':
-            handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'travel'));
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'travel'));
+            Touch.run();
             break;
           case 'popular':
-            handleAccordionClick(accordion, API.topArticles);
+            await handleAccordionClick(accordion, API.topArticles);
+            Touch.run();
             break;
           default:
             break;
