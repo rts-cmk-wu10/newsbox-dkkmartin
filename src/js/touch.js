@@ -12,7 +12,6 @@ export default class Touch {
       });
 
       article.addEventListener('touchmove', (e) => {
-        e.preventDefault();
         const deltaX = e.touches[0].clientX - initialX;
         const maxSlideLeft = -120;
         const translatedX = Math.max(deltaX, maxSlideLeft);
