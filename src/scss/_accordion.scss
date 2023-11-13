@@ -1,0 +1,13 @@
+.accordion-article {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  color: initial;
+  text-decoration: none;
+  height: 120px;
+
+  img {
+    max-width: 70px;
+    max-height: 70px;
+  }
+}

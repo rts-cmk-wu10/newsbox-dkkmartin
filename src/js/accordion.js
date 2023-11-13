@@ -34,15 +34,38 @@ export default class Accordion {
         `[data-query="${accordion.dataset.query}"] .accordion-body`
       );
       const articles = await searchFunction();
-      articles.response.docs.forEach((article) => {
-        const newArticle = document.createElement('article');
-        newArticle.classList.add('border-bottom', 'py-3', 'px-4');
-        newArticle.innerHTML = `
-        <h3 class="card-title">${article.headline.main}</h3>
-        <p class="card-subtitle">${article.abstract}</p>
-      `;
-        accordionBody.appendChild(newArticle);
-      });
+
+      if (accordion.dataset.query === 'popular') {
+        articles.results.forEach((article) => {
+          const newArticle = document.createElement('article');
+          newArticle.classList.add('border-bottom', 'py-3', 'px-4');
+          newArticle.innerHTML = `
+          <a class="accordion-article" target="_blank" href="${article.url}">
+            <img class="rounded-circle object-fit-fill" src="${article.media[0]?.['media-metadata'][0].url}" alt="Thumbnail for article"></img>
+            <div>
+              <h3 class="card-title">${article.title}</h3>
+              <p class="card-subtitle">${article.abstract}</p>
+            </div>
+          </a>
+        `;
+          accordionBody.appendChild(newArticle);
+        });
+      } else {
+        articles.response.docs.forEach((article) => {
+          const newArticle = document.createElement('article');
+          newArticle.classList.add('border-bottom', 'py-3', 'px-4');
+          newArticle.innerHTML = `
+          <a class="accordion-article" target="_blank" href="${article.web_url}">
+            <img class="rounded-circle object-fit-fill" src="https://www.nytimes.com/${article.multimedia[17]?.url}" alt="Thumbnail for article"></img>
+            <div>
+              <h3 class="card-title">${article.headline.main}</h3>
+              <p class="card-subtitle">${article.abstract}</p>
+            </div>
+          </a>
+        `;
+          accordionBody.appendChild(newArticle);
+        });
+      }
     }
 
     accordions.forEach((accordion) => {
