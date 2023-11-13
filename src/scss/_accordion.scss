@@ -1,3 +1,7 @@
+.accordion-body article {
+  display: flex;
+}
+
 .accordion-article {
   display: flex;
   align-items: center;
@@ -10,14 +14,11 @@
     max-width: 70px;
     max-height: 70px;
   }
+}
 
-  .accordion-article-swipeleft {
-    position: relative;
-    top: 0;
-    height: 100%;
-    background-color: green;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.accordion-article-swipeleft {
+  display: contents;
+  transform: translateX(110%);
+  height: 100%;
+  background-color: green;
 }
