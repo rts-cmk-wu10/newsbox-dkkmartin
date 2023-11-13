@@ -1,3 +1,4 @@
+import autoAnimate from '@formkit/auto-animate';
 import Storage from './storage';
 import API from './articleFetch';
 import Touch from './touch';
@@ -27,6 +28,10 @@ export default class Accordion {
       if (accordion.dataset.hasBeenClicked === 'true') return;
       await appendData(accordion, searchFunction);
       accordion.dataset.hasBeenClicked = 'true';
+      accordions.forEach((accordion) => {
+        const accordionBody = accordion.querySelector('.accordion-body');
+        autoAnimate(accordionBody);
+      });
     }
 
     // Gets the articles and appends every article in the accordion body
@@ -61,9 +66,9 @@ export default class Accordion {
       } else {
         articles.response.docs.forEach((article) => {
           const newArticle = document.createElement('article');
-          newArticle.classList.add('border-bottom', 'py-3', 'px-4');
+          newArticle.classList.add('border-bottom');
           newArticle.innerHTML = `
-          <a class="accordion-article" target="_blank" href="${article.web_url}">
+          <a class="accordion-article px-4 py-3" target="_blank" href="${article.web_url}">
             <img class="rounded-circle object-fit-fill" src="${
               article.multimedia[17]?.url
                 ? `https://www.nytimes.com/${article.multimedia[17]?.url}`
@@ -74,6 +79,9 @@ export default class Accordion {
               <p class="card-subtitle">${article.abstract}</p>
             </div>
           </a>
+          <div class="accordion-article-swipeleft">
+          <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
+        </div>
         `;
           accordionBody.appendChild(newArticle);
         });
@@ -115,6 +123,10 @@ export default class Accordion {
         }
       });
     });
+  }
+
+  static accordionArticleRemover(article) {
+    article.parentElement.remove();
   }
 
   static run() {
