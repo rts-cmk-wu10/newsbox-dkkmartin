@@ -7,7 +7,7 @@ export default class Archive {
       subject:
         article.parentElement.parentElement.parentElement.parentElement
           .parentElement.dataset.query,
-      html: this.articleCleaner(article.outerHTML),
+      html: this.articleCleaner(article.parentElement.outerHTML),
     }
     archiveArray.push(articleObject)
     Storage.saveToStorage('archive', archiveArray)
@@ -18,17 +18,20 @@ export default class Archive {
   static loadArchive() {
     const accordions = document.querySelectorAll('.offcanvas .accordion')
     const archiveArray = Storage.loadFromStorage('archive') ?? []
-    accordions.forEach((accordion) => {
-      archiveArray.forEach((obj) => {
-        if (obj.subject === accordion.dataset.query) {
+
+    for (const accordion of accordions) {
+      const accordionQuery = accordion.dataset.query
+      for (const obj of archiveArray) {
+        if (obj.subject === accordionQuery) {
           const newArticle = document.createElement('article')
           const accordionBody = accordion.querySelector('.accordion-body')
           newArticle.classList.add('border-bottom')
           newArticle.innerHTML = obj.html
           accordionBody.appendChild(newArticle)
+          break
         }
-      })
-    })
+      }
+    }
   }
 
   static articleCleaner(article) {

@@ -6,7 +6,6 @@
 
 .accordion-article {
   position: absolute;
-  z-index: 2;
   display: flex;
   align-items: center;
   gap: 1em;
@@ -22,7 +21,7 @@
 
 .accordion-article-swipeleft {
   position: relative;
-  left: calc(100%);
+  left: 100%;
   z-index: 1;
   height: 150px;
   width: 140px;

@@ -105,6 +105,7 @@ export default class Accordion {
             await handleAccordionClick(accordion, () =>
               API.searchArticles('news_desk', 'health')
             )
+            Touch.run()
             break
           case 'sport':
             await handleAccordionClick(accordion, () =>
