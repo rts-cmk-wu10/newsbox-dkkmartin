@@ -1,18 +1,51 @@
-import Storage from './storage';
+import Storage from './storage'
 
 export default class Archive {
   static articleArchive(article) {
-    if (!Storage.loadFromStorage('archive')) {
-      const archiveArray = [];
-      const articleHTML = article.outerHTML;
-      archiveArray.push(articleHTML);
-      Storage.saveToStorage('archive', archiveArray);
-    } else {
-      const localArchive = Storage.loadFromStorage('archive');
-      const articleHTML = article.outerHTML;
-      localArchive.push(articleHTML);
-      Storage.saveToStorage('archive', localArchive);
+    let archiveArray = Storage.loadFromStorage('archive') || []
+    const articleObject = {
+      subject:
+        article.parentElement.parentElement.parentElement.parentElement
+          .parentElement.dataset.query,
+      html: this.articleCleaner(article.outerHTML),
     }
-    article.parentElement.remove();
+    archiveArray.push(articleObject)
+    Storage.saveToStorage('archive', archiveArray)
+    article.parentElement.remove()
+    this.loadArchive()
+  }
+
+  static loadArchive() {
+    const accordions = document.querySelectorAll('.offcanvas .accordion')
+    const archiveArray = Storage.loadFromStorage('archive') ?? []
+    accordions.forEach((accordion) => {
+      archiveArray.forEach((obj) => {
+        if (obj.subject === accordion.dataset.query) {
+          const newArticle = document.createElement('article')
+          const accordionBody = accordion.querySelector('.accordion-body')
+          newArticle.classList.add('border-bottom')
+          newArticle.innerHTML = obj.html
+          accordionBody.appendChild(newArticle)
+        }
+      })
+    })
+  }
+
+  static articleCleaner(article) {
+    const parser = new DOMParser()
+    const parsedHTML = parser.parseFromString(article, 'text/html')
+
+    const elementsWithStyles = parsedHTML.querySelectorAll('[style]')
+    elementsWithStyles.forEach((element) => {
+      element.removeAttribute('style')
+    })
+
+    return parsedHTML.documentElement.outerHTML
+  }
+
+  static deleteArticleArchive() {}
+
+  static run() {
+    this.loadArchive()
   }
 }

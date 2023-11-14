@@ -1,66 +1,66 @@
-import Archive from './archive';
+import Archive from './archive'
 
 export default class Touch {
   static touchSwipe() {
-    const articles = document.querySelectorAll('.accordion-article');
+    const articles = document.querySelectorAll('.accordion-article')
 
-    let initialX, initialY, animationFrame;
+    let initialX, initialY, animationFrame
     articles.forEach((article) => {
       article.addEventListener('touchstart', (e) => {
-        initialX = e.touches[0].clientX;
-        initialY = e.touches[0].clientY;
-      });
+        initialX = e.touches[0].clientX
+        initialY = e.touches[0].clientY
+      })
 
       article.addEventListener('touchmove', (e) => {
-        const deltaX = e.touches[0].clientX - initialX;
-        const maxSlideLeft = -120;
-        const translatedX = Math.max(deltaX, maxSlideLeft);
+        const deltaX = e.touches[0].clientX - initialX
+        const maxSlideLeft = -140
+        const translatedX = Math.max(deltaX, maxSlideLeft)
 
         // Only allow swipe to the left
         if (translatedX < 0) {
-          article.style.transform = `translateX(${translatedX}px)`;
-          article.nextElementSibling.style.transform = `translateX(${translatedX}px)`;
+          article.style.transform = `translateX(${translatedX}px)`
+          article.nextElementSibling.style.transform = `translateX(${translatedX}px)`
         }
-      });
+      })
 
       article.addEventListener('touchend', (e) => {
-        var deltaX = e.changedTouches[0].clientX - initialX;
-        var deltaY = Math.abs(e.changedTouches[0].clientY - initialY);
+        var deltaX = e.changedTouches[0].clientX - initialX
+        var deltaY = Math.abs(e.changedTouches[0].clientY - initialY)
 
-        if (deltaX <= -100 && deltaY <= 100) {
-          this.swipeLeft(article);
+        if (deltaX <= -130 && deltaY <= 130) {
+          this.swipeLeft(article)
         } else {
-          this.resetTransform(article);
+          this.resetTransform(article)
         }
 
         animationFrame = requestAnimationFrame(() => {
-          article.style.transition = '';
-          article.nextElementSibling.style.transition = '';
-        });
-      });
+          article.style.transition = ''
+          article.nextElementSibling.style.transition = ''
+        })
+      })
 
       article.addEventListener('touchcancel', () => {
-        cancelAnimationFrame(animationFrame);
-      });
-    });
+        cancelAnimationFrame(animationFrame)
+      })
+    })
   }
 
   static swipeLeft(article) {
-    article.style.transition = 'transform 0.3s ease-in-out';
-    article.style.transform = 'translateX(-35%)';
-    article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out';
-    article.nextElementSibling.style.transform = 'translateX(-100%)';
-    Archive.articleArchive(article);
+    article.style.transition = 'transform 0.3s ease-in-out'
+    article.style.transform = 'translateX(-35%)'
+    article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out'
+    article.nextElementSibling.style.transform = 'translateX(-100%)'
+    Archive.articleArchive(article)
   }
 
   static resetTransform(article) {
-    article.style.transition = 'transform 0.3s ease-in-out';
-    article.style.transform = 'translateX(0)';
-    article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out';
-    article.nextElementSibling.style.transform = 'translateX(0)';
+    article.style.transition = 'transform 0.3s ease-in-out'
+    article.style.transform = 'translateX(0)'
+    article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out'
+    article.nextElementSibling.style.transform = 'translateX(0)'
   }
 
   static run() {
-    this.touchSwipe();
+    this.touchSwipe()
   }
 }
