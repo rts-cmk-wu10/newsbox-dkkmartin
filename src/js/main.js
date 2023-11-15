@@ -12,11 +12,9 @@ import Settings from './settings'
 import Accordion from './accordion'
 import Archive from './archive'
 
-const settingsInputs = document.querySelectorAll(
-  '.settings__container > div > div > input'
-)
+const settingsInputs = document.querySelectorAll('.settings__container > div > div > input')
 
-// Run settings and accodion functions
+// Run settings, accordion and archive functions
 Settings.run()
 Accordion.run()
 Archive.run()

@@ -18,6 +18,13 @@ export default class Accordion {
     })
   }
 
+  static emptyArchiveAccordions() {
+    const accordions = document.querySelectorAll('#offcanvasLeft .accordion-body')
+    accordions.forEach((accordion) => {
+      accordion.innerHTML = ''
+    })
+  }
+
   // Loads content once when clicked for each accodion
   static accordionContent() {
     const accordions = document.querySelectorAll('.container-main .accordion')
@@ -46,9 +53,7 @@ export default class Accordion {
           const newArticle = document.createElement('article')
           newArticle.classList.add('border-bottom')
           newArticle.innerHTML = `
-          <a class="accordion-article px-4 py-3" target="_blank" href="${
-            article.url
-          }">
+          <a class="accordion-article px-4 py-3" target="_blank" href="${article.url}">
             <img class="rounded-circle object-fit-fill" src="${
               article.media[0]?.['media-metadata'][0].url
                 ? article.media[0]?.['media-metadata'][0].url
@@ -70,9 +75,7 @@ export default class Accordion {
           const newArticle = document.createElement('article')
           newArticle.classList.add('border-bottom')
           newArticle.innerHTML = `
-          <a class="accordion-article px-4 py-3" target="_blank" href="${
-            article.web_url
-          }">
+          <a class="accordion-article px-4 py-3" target="_blank" href="${article.web_url}">
             <img class="rounded-circle object-fit-fill" src="${
               article.multimedia[17]?.url
                 ? `https://www.nytimes.com/${article.multimedia[17]?.url}`
@@ -102,27 +105,19 @@ export default class Accordion {
             Touch.run()
             break
           case 'health':
-            await handleAccordionClick(accordion, () =>
-              API.searchArticles('news_desk', 'health')
-            )
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'health'))
             Touch.run()
             break
           case 'sport':
-            await handleAccordionClick(accordion, () =>
-              API.searchArticles('news_desk', 'sports')
-            )
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'sports'))
             Touch.run()
             break
           case 'business':
-            await handleAccordionClick(accordion, () =>
-              API.searchArticles('news_desk', 'business')
-            )
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'business'))
             Touch.run()
             break
           case 'travel':
-            await handleAccordionClick(accordion, () =>
-              API.searchArticles('news_desk', 'travel')
-            )
+            await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'travel'))
             Touch.run()
             break
           case 'popular':
