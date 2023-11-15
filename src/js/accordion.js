@@ -2,6 +2,7 @@ import autoAnimate from '@formkit/auto-animate'
 import Storage from './storage'
 import API from './articleFetch'
 import Touch from './touch'
+import Hash from './hash'
 
 export default class Accordion {
   // Controls which accordions are shown
@@ -68,7 +69,9 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-          accordionBody.appendChild(newArticle)
+          if (Hash.findHash(newArticle)) {
+            accordionBody.appendChild(newArticle)
+          } else console.log('Skipped a archived article')
         })
       } else {
         articles.response.docs.forEach((article) => {
@@ -90,7 +93,9 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-          accordionBody.appendChild(newArticle)
+          if (Hash.findHash(newArticle)) {
+            accordionBody.appendChild(newArticle)
+          } else console.log('Skipped a archived article')
         })
       }
     }

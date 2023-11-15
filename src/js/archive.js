@@ -1,5 +1,6 @@
 import Accordion from './accordion'
 import Storage from './storage'
+import Hash from './hash'
 
 export default class Archive {
   static articleArchive(article) {
@@ -9,6 +10,7 @@ export default class Archive {
     const cleanedArticle = this.articleCleaner(article.outerHTML)
     const modiefiedArticle = this.articleModifier(cleanedArticle)
     const articleObject = {
+      id: Hash.saveArticleHash(cleanedArticle),
       subject: articleQuery,
       html: modiefiedArticle.innerHTML,
     }
@@ -71,7 +73,9 @@ export default class Archive {
     return removeTags(parsedHTML.documentElement.innerHTML)
   }
 
-  static deleteArticleArchive() {}
+  static hashArticle(article) {
+    Hash.saveArticleHash(article)
+  }
 
   static run() {
     this.loadArchive()

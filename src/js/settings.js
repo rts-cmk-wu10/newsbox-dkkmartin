@@ -1,20 +1,19 @@
-//@ts-check
-import Storage from './storage';
+import Storage from './storage'
 export default class Settings {
   // Saves settings when inputs are clicked
   static settingsSaver() {
-    const settingsInputs = document.querySelectorAll('.settings__container > div > div > input');
-    const settingsArray = Storage.loadFromStorage('settings');
+    const settingsInputs = document.querySelectorAll('.settings__container > div > div > input')
+    const settingsArray = Storage.loadFromStorage('settings')
     settingsInputs.forEach((input) => {
       input.addEventListener('click', () => {
         settingsArray.forEach((obj) => {
           if (obj.name === input.id) {
-            obj.checked = input.checked;
-            Storage.saveToStorage('settings', settingsArray);
+            obj.checked = input.checked
+            Storage.saveToStorage('settings', settingsArray)
           }
-        });
-      });
-    });
+        })
+      })
+    })
   }
 
   // Loads settings from localstorage
@@ -46,17 +45,17 @@ export default class Settings {
           name: 'flexSwitchCheckDefaultTravel',
           checked: true,
         },
-      ];
-      Storage.saveToStorage('settings', defaultSettings);
+      ]
+      Storage.saveToStorage('settings', defaultSettings)
     }
-    const settingsArray = Storage.loadFromStorage('settings');
+    const settingsArray = Storage.loadFromStorage('settings')
     settingsArray.forEach((obj) => {
-      document.querySelector(`#${obj.name}`).checked = obj.checked;
-    });
+      document.querySelector(`#${obj.name}`).checked = obj.checked
+    })
   }
 
   static run() {
-    Settings.settingsLoader();
-    Settings.settingsSaver();
+    Settings.settingsLoader()
+    Settings.settingsSaver()
   }
 }
