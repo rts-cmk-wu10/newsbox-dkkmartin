@@ -71,7 +71,7 @@ export default class Accordion {
         `
           if (Hash.findHash(newArticle)) {
             accordionBody.appendChild(newArticle)
-          } else console.log('Skipped a archived article')
+          }
         })
       } else {
         articles.response.docs.forEach((article) => {
@@ -95,7 +95,7 @@ export default class Accordion {
         `
           if (Hash.findHash(newArticle)) {
             accordionBody.appendChild(newArticle)
-          } else console.log('Skipped a archived article')
+          }
         })
       }
     }
@@ -106,7 +106,6 @@ export default class Accordion {
         switch (accordion.dataset.query) {
           case 'europe':
             await handleAccordionClick(accordion, API.searchArticlesEurope)
-
             Touch.run()
             break
           case 'health':

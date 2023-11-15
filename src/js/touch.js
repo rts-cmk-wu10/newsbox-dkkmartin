@@ -4,7 +4,7 @@ export default class Touch {
   static touchSwipe() {
     const articles = document.querySelectorAll('.accordion-article')
 
-    let initialX, initialY, animationFrame
+    let initialX, initialY, animationFrame, debounceTimer
     articles.forEach((article) => {
       article.addEventListener('touchstart', (e) => {
         initialX = e.touches[0].clientX
@@ -27,7 +27,7 @@ export default class Touch {
         var deltaX = e.changedTouches[0].clientX - initialX
         var deltaY = Math.abs(e.changedTouches[0].clientY - initialY)
 
-        if (deltaX <= -130 && deltaY <= 130) {
+        if (deltaX <= -150 && deltaY <= 150) {
           this.swipeLeft(article)
         } else {
           this.resetTransform(article)
@@ -50,7 +50,13 @@ export default class Touch {
     article.style.transform = 'translateX(-35%)'
     article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out'
     article.nextElementSibling.style.transform = 'translateX(-100%)'
-    Archive.articleArchive(article)
+    if (article.nextElementSibling.classList.contains('accordion-article-swipeleft')) {
+      console.log('Left swipe')
+      Archive.articleArchive(article)
+    } else {
+      Archive.archiveDeleter(article)
+      article.parentElement.remove()
+    }
   }
 
   static resetTransform(article) {
