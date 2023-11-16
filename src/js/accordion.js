@@ -19,14 +19,6 @@ export default class Accordion {
     })
   }
 
-  static accordionSpinner(accordion) {
-    const accordionBody = accordion.querySelector('.accordion-body')
-    const newSpinner = document.createElement('img')
-    newSpinner.src = './assets/icons/SvgSpinnersBarsRotateFade.svg'
-    newSpinner.alt = 'Accordion spinner'
-    accordionBody.appendChild(newSpinner)
-  }
-
   static emptyArchiveAccordions() {
     const accordions = document.querySelectorAll('#offcanvasLeft .accordion-body')
     accordions.forEach((accordion) => {
@@ -41,13 +33,32 @@ export default class Accordion {
     // When accordion is clicked i check if it has been clicked before
     // If not it runs appendData and marks the accordion as clicked
     async function handleAccordionClick(accordion, searchFunction) {
+      function accordionSpinnerShow(accordion) {
+        const accordionBody = accordion.querySelector('.accordion-body')
+        const newSpinner = document.createElement('div')
+        newSpinner.classList.add('d-flex', 'justify-content-center', 'spinner')
+        newSpinner.innerHTML = `
+        <div class="spinner-border text-primary m-2" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        `
+        accordionBody.appendChild(newSpinner)
+      }
+
+      function accordionSpinnerHide(accordion) {
+        const spinner = accordion.querySelector('.spinner')
+        spinner.remove()
+      }
+
       if (accordion.dataset.hasBeenClicked === 'true') return
+      accordionSpinnerShow(accordion)
       await appendData(accordion, searchFunction)
       accordion.dataset.hasBeenClicked = 'true'
       accordions.forEach((accordion) => {
         const accordionBody = accordion.querySelector('.accordion-body')
         autoAnimate(accordionBody)
       })
+      accordionSpinnerHide(accordion)
       Touch.run('main')
     }
 
@@ -114,7 +125,6 @@ export default class Accordion {
       accordion.addEventListener('click', async () => {
         switch (accordion.dataset.query) {
           case 'europe':
-            this.accordionSpinner(accordion)
             await handleAccordionClick(accordion, API.searchArticlesEurope)
             break
           case 'health':
