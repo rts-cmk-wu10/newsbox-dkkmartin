@@ -3,7 +3,7 @@ import Storage from './storage'
 import API from './articleFetch'
 import Touch from './touch'
 import Hash from './hash'
-import { animate, stagger } from 'motion'
+import anime from 'animejs'
 
 export default class Accordion {
   // Controls which accordions are shown
@@ -123,10 +123,21 @@ export default class Accordion {
 
     function accordionAnimator(accordion) {
       const accordionBodyElements = accordion.querySelectorAll('.accordion-body article')
-      animate(accordionBodyElements, {
-        opacity: [0, 1],
-        duration: 2,
-      })
+      const isExpanded = accordion.querySelector('.accordion-button').getAttribute('aria-expanded')
+
+      if (isExpanded) {
+        animateIn()
+      } else {
+      }
+      function animateIn() {
+        anime({
+          targets: accordionBodyElements,
+          opacity: [0, 1],
+          left: ['-100%', '0'],
+          delay: anime.stagger(100),
+          easing: 'easeOutQuint',
+        })
+      }
     }
 
     accordions.forEach((accordion) => {
@@ -143,15 +154,19 @@ export default class Accordion {
             break
           case 'sport':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'sports'))
+            accordionAnimator(accordion)
             break
           case 'business':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'business'))
+            accordionAnimator(accordion)
             break
           case 'travel':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'travel'))
+            accordionAnimator(accordion)
             break
           case 'popular':
             await handleAccordionClick(accordion, API.topArticles)
+            accordionAnimator(accordion)
             break
           default:
             break
