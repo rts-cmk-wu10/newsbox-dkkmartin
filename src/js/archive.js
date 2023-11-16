@@ -1,6 +1,8 @@
 import Accordion from './accordion'
 import Storage from './storage'
 import Hash from './hash'
+import autoAnimate from '@formkit/auto-animate'
+import Touch from './touch'
 
 export default class Archive {
   // Saves a object with an article to localstorage
@@ -34,12 +36,14 @@ export default class Archive {
 
       if (accordion) {
         const accordionBody = accordion.querySelector('.accordion-body')
+        autoAnimate(accordionBody)
         const newArticle = document.createElement('article')
         newArticle.classList.add('border-bottom')
         newArticle.innerHTML = obj.html
         accordionBody.appendChild(newArticle)
       }
     })
+    Touch.run('.offcanvas')
   }
 
   // Modifies an article

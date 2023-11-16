@@ -11,7 +11,6 @@ import 'bootstrap/js/dist/collapse'
 import Settings from './settings'
 import Accordion from './accordion'
 import Archive from './archive'
-import Touch from './touch'
 
 const settingsInputs = document.querySelectorAll('.settings__container > div > div > input')
 
@@ -19,7 +18,6 @@ const settingsInputs = document.querySelectorAll('.settings__container > div > d
 Settings.run()
 Accordion.run()
 Archive.run()
-Touch.run()
 
 // Update accordions shown if there is a change in settings
 settingsInputs.forEach((input) => {

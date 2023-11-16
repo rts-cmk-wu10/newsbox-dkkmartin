@@ -1,10 +1,10 @@
 import Archive from './archive'
 
 export default class Touch {
-  static touchSwipe() {
-    const articles = document.querySelectorAll('.accordion-article')
+  static touchSwipe(selector) {
+    const articles = document.querySelectorAll(`${selector} .accordion-article`)
 
-    let initialX, initialY, animationFrame, debounceTimer
+    let initialX, initialY, animationFrame
     articles.forEach((article) => {
       article.addEventListener('touchstart', (e) => {
         initialX = e.touches[0].clientX
@@ -31,16 +31,13 @@ export default class Touch {
           this.swipeLeft(article)
         } else {
           this.resetTransform(article)
+          cancelAnimationFrame(animationFrame)
         }
 
         animationFrame = requestAnimationFrame(() => {
           article.style.transition = ''
           article.nextElementSibling.style.transition = ''
         })
-      })
-
-      article.addEventListener('touchcancel', () => {
-        cancelAnimationFrame(animationFrame)
       })
     })
   }
@@ -51,7 +48,6 @@ export default class Touch {
     article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out'
     article.nextElementSibling.style.transform = 'translateX(-100%)'
     if (article.nextElementSibling.classList.contains('accordion-article-swipeleft')) {
-      console.log('Left swipe')
       Archive.articleArchive(article)
     } else {
       Archive.archiveDeleter(article)
@@ -61,12 +57,12 @@ export default class Touch {
 
   static resetTransform(article) {
     article.style.transition = 'transform 0.3s ease-in-out'
-    article.style.transform = 'translateX(0)'
     article.nextElementSibling.style.transition = 'transform 0.3s ease-in-out'
+    article.style.transform = 'translateX(0)'
     article.nextElementSibling.style.transform = 'translateX(0)'
   }
 
-  static run() {
-    this.touchSwipe()
+  static run(selector) {
+    this.touchSwipe(selector)
   }
 }

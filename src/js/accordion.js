@@ -19,6 +19,14 @@ export default class Accordion {
     })
   }
 
+  static accordionSpinner(accordion) {
+    const accordionBody = accordion.querySelector('.accordion-body')
+    const newSpinner = document.createElement('img')
+    newSpinner.src = './assets/icons/SvgSpinnersBarsRotateFade.svg'
+    newSpinner.alt = 'Accordion spinner'
+    accordionBody.appendChild(newSpinner)
+  }
+
   static emptyArchiveAccordions() {
     const accordions = document.querySelectorAll('#offcanvasLeft .accordion-body')
     accordions.forEach((accordion) => {
@@ -40,6 +48,7 @@ export default class Accordion {
         const accordionBody = accordion.querySelector('.accordion-body')
         autoAnimate(accordionBody)
       })
+      Touch.run('main')
     }
 
     // Gets the articles and appends every article in the accordion body
@@ -105,28 +114,23 @@ export default class Accordion {
       accordion.addEventListener('click', async () => {
         switch (accordion.dataset.query) {
           case 'europe':
+            this.accordionSpinner(accordion)
             await handleAccordionClick(accordion, API.searchArticlesEurope)
-            Touch.run()
             break
           case 'health':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'health'))
-            Touch.run()
             break
           case 'sport':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'sports'))
-            Touch.run()
             break
           case 'business':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'business'))
-            Touch.run()
             break
           case 'travel':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'travel'))
-            Touch.run()
             break
           case 'popular':
             await handleAccordionClick(accordion, API.topArticles)
-            Touch.run()
             break
           default:
             break
