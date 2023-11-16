@@ -11,6 +11,7 @@ import 'bootstrap/js/dist/collapse'
 import Settings from './settings'
 import Accordion from './accordion'
 import Archive from './archive'
+import './theme'
 
 const settingsInputs = document.querySelectorAll('.settings__container > div > div > input')
 

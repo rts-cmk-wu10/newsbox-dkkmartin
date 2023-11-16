@@ -3,6 +3,7 @@ import Storage from './storage'
 import API from './articleFetch'
 import Touch from './touch'
 import Hash from './hash'
+import { animate } from 'motion'
 
 export default class Accordion {
   // Controls which accordions are shown
