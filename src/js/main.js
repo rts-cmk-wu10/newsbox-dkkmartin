@@ -23,6 +23,6 @@ Archive.run()
 // Update accordions shown if there is a change in settings
 settingsInputs.forEach((input) => {
   input.addEventListener('click', () => {
-    Accordion.run()
+    Accordion.accordionShower()
   })
 })

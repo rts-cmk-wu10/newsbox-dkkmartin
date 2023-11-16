@@ -3,7 +3,7 @@ import Storage from './storage'
 import API from './articleFetch'
 import Touch from './touch'
 import Hash from './hash'
-import { animate } from 'motion'
+import { animate, stagger } from 'motion'
 
 export default class Accordion {
   // Controls which accordions are shown
@@ -51,30 +51,18 @@ export default class Accordion {
         spinner.remove()
       }
 
-      if (accordion.dataset.hasBeenClicked === 'true') return
-      accordionSpinnerShow(accordion)
-      await appendData(accordion, searchFunction)
-      accordion.dataset.hasBeenClicked = 'true'
-      accordions.forEach((accordion) => {
-        const accordionBody = accordion.querySelector('.accordion-body')
-        autoAnimate(accordionBody)
-      })
-      accordionSpinnerHide(accordion)
-      Touch.run('main')
-    }
+      // Gets the articles and appends every article in the accordion body
+      async function appendData(accordion, searchFunction) {
+        const accordionBody = document.querySelector(
+          `[data-query="${accordion.dataset.query}"] .accordion-body`
+        )
+        const articles = await searchFunction()
 
-    // Gets the articles and appends every article in the accordion body
-    async function appendData(accordion, searchFunction) {
-      const accordionBody = document.querySelector(
-        `[data-query="${accordion.dataset.query}"] .accordion-body`
-      )
-      const articles = await searchFunction()
-
-      if (accordion.dataset.query === 'popular') {
-        articles.results.forEach((article) => {
-          const newArticle = document.createElement('article')
-          newArticle.classList.add('border-bottom')
-          newArticle.innerHTML = `
+        if (accordion.dataset.query === 'popular') {
+          articles.results.forEach((article) => {
+            const newArticle = document.createElement('article')
+            newArticle.classList.add('border-bottom')
+            newArticle.innerHTML = `
           <a class="accordion-article px-4 py-3" target="_blank" href="${article.url}">
             <img class="rounded-circle object-fit-fill" src="${
               article.media[0]?.['media-metadata'][0].url
@@ -90,15 +78,15 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-          if (Hash.findHash(newArticle)) {
-            accordionBody.appendChild(newArticle)
-          }
-        })
-      } else {
-        articles.response.docs.forEach((article) => {
-          const newArticle = document.createElement('article')
-          newArticle.classList.add('border-bottom')
-          newArticle.innerHTML = `
+            if (Hash.findHash(newArticle)) {
+              accordionBody.appendChild(newArticle)
+            }
+          })
+        } else {
+          articles.response.docs.forEach((article) => {
+            const newArticle = document.createElement('article')
+            newArticle.classList.add('border-bottom')
+            newArticle.innerHTML = `
           <a class="accordion-article px-4 py-3" target="_blank" href="${article.web_url}">
             <img class="rounded-circle object-fit-fill" src="${
               article.multimedia[17]?.url
@@ -114,11 +102,31 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-          if (Hash.findHash(newArticle)) {
-            accordionBody.appendChild(newArticle)
-          }
-        })
+            if (Hash.findHash(newArticle)) {
+              accordionBody.appendChild(newArticle)
+            }
+          })
+        }
       }
+
+      if (accordion.dataset.hasBeenClicked === 'true') return
+      accordionSpinnerShow(accordion)
+      await appendData(accordion, searchFunction)
+      accordion.dataset.hasBeenClicked = 'true'
+      accordions.forEach((accordion) => {
+        const accordionBody = accordion.querySelector('.accordion-body')
+        autoAnimate(accordionBody)
+      })
+      accordionSpinnerHide(accordion)
+      Touch.run('.container-main')
+    }
+
+    function accordionAnimator(accordion) {
+      const accordionBodyElements = accordion.querySelectorAll('.accordion-body article')
+      animate(accordionBodyElements, {
+        opacity: [0, 1],
+        duration: 2,
+      })
     }
 
     accordions.forEach((accordion) => {
@@ -127,9 +135,11 @@ export default class Accordion {
         switch (accordion.dataset.query) {
           case 'europe':
             await handleAccordionClick(accordion, API.searchArticlesEurope)
+            accordionAnimator(accordion)
             break
           case 'health':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'health'))
+            accordionAnimator(accordion)
             break
           case 'sport':
             await handleAccordionClick(accordion, () => API.searchArticles('news_desk', 'sports'))
