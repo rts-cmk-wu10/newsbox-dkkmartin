@@ -10,6 +10,7 @@ export default class Accordion {
   static accordionShower() {
     const settingsArray = Storage.loadFromStorage('settings')
     const accordions = document.querySelectorAll('.container-main .accordion')
+    const containerMain = document.querySelector('.container-main')
 
     settingsArray.forEach((obj, index) => {
       if (obj.checked) {
@@ -18,6 +19,8 @@ export default class Accordion {
         accordions[index].classList.add('hidden')
       }
     })
+
+    autoAnimate(containerMain)
   }
 
   static emptyArchiveAccordions() {
@@ -25,6 +28,74 @@ export default class Accordion {
     accordions.forEach((accordion) => {
       accordion.innerHTML = ''
     })
+  }
+
+  static accordionSearch(articles) {
+    if (document.getElementById('accordionFlushSearch')) {
+      makeSearchElements(articles)
+    } else {
+      const conMain = document.querySelector('.container-main')
+      const newAccordion = document.createElement('div')
+      newAccordion.classList.add(
+        'accordion',
+        'open',
+        'accordion-flush',
+        'border',
+        'border-bottom-0',
+        'border-start-0',
+        'border-end-0'
+      )
+      newAccordion.setAttribute('id', 'accordionFlushSearch')
+      newAccordion.innerHTML = `
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+        <button class="accordion-button collapsed text-uppercase card-title" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSearch" aria-expanded="false" aria-controls="flush-collapseSearch">
+          Search
+        </button>
+        </h2>
+        <div id="flush-collapseSearch" class="accordion-collapse collapse" data-bs-parent="#accordionFlushSearch">
+          <div class="accordion-body"></div>
+        </div>
+      </div>`
+      conMain.appendChild(newAccordion)
+      makeSearchElements(articles)
+    }
+
+    function makeSearchElements(articles) {
+      const accordionBody = document
+        .querySelector('#flush-collapseSearch')
+        .querySelector('.accordion-body')
+      accordionBody.innerHTML = ''
+      if (articles.response.docs.length <= 0) {
+        const input = document.querySelector('#article-search')
+        const message = document.createElement('p')
+        message.classList.add('text-center')
+        message.innerHTML = `No matches for <span class="text-uppercase fw-bold">"${input.value}"</span>`
+        accordionBody.appendChild(message)
+      } else {
+        articles.response.docs.forEach((article) => {
+          const newArticle = document.createElement('article')
+          newArticle.classList.add('border-bottom')
+          newArticle.innerHTML = `
+          <a class="accordion-article px-4 py-3" target="_blank" href="${article.web_url}">
+            <img class="rounded-circle object-fit-fill" src="${
+              article.multimedia[17]?.url
+                ? `https://www.nytimes.com/${article.multimedia[17]?.url}`
+                : './assets/icons/TwemojiNewspaper.svg'
+            }" alt="Thumbnail for article"></img>
+           <div>
+              <h3 class="card-title">${article.headline.main}</h3>
+              <p class="card-subtitle">${article.abstract}</p>
+            </div>
+          </a>
+          <div class="accordion-article-swipeleft">
+            <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
+          </div>
+          `
+          accordionBody.appendChild(newArticle)
+        })
+      }
+    }
   }
 
   // Loads content once when clicked for each accodion
