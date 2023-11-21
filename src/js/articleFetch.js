@@ -17,7 +17,7 @@ export default class API {
   static async searchArticlesSpecific(query) {
     try {
       const response = await fetch(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=${query}&api-key=NO3NQNNqyVN7OcEhXphFMgmZc1ZGe0l2`
+        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&api-key=NO3NQNNqyVN7OcEhXphFMgmZc1ZGe0l2`
       )
       if (response.ok) {
         return response.json()

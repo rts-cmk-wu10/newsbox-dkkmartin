@@ -5,7 +5,6 @@ export default class Searchbar {
   static async search() {
     const input = document.querySelector('#article-search')
     const data = await API.searchArticlesSpecific(`${input.value}`)
-    console.log(data)
     Accordion.accordionSearch(data)
   }
 

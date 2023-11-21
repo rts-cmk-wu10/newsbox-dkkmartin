@@ -28,6 +28,11 @@
   }
 }
 
+.accordion-article .card-subtitle {
+  max-height: 60px;
+  overflow: hidden;
+}
+
 .accordion-article-swipeleft,
 .accordion-article-swipeleft--delete {
   position: relative;

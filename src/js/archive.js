@@ -41,6 +41,14 @@ export default class Archive {
         newArticle.classList.add('border-bottom')
         newArticle.innerHTML = obj.html
         accordionBody.appendChild(newArticle)
+      } else {
+        // For search archive elements
+        const accordionBody = document.querySelector('#flush-collapseSeven .accordion-body')
+        autoAnimate(accordionBody)
+        const newArticle = document.createElement('article')
+        newArticle.classList.add('border-bottom')
+        newArticle.innerHTML = obj.html
+        accordionBody.appendChild(newArticle)
       }
     })
     Touch.run('.offcanvas')

@@ -32,9 +32,9 @@ export default class Hash {
     let hashSet = new Set(Storage.loadFromStorage('hashes'))
     const hash = this.makeHash(article.firstElementChild.outerHTML)
     if (hashSet.has(hash)) {
-      return false
-    } else {
       return true
+    } else {
+      return false
     }
   }
 

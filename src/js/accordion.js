@@ -61,6 +61,36 @@ export default class Accordion {
       makeSearchElements(articles)
     }
 
+    function accordionAnimator(accordion) {
+      const accordionBodyElements = accordion.querySelectorAll('.accordion-body article')
+      const isExpanded = accordion.querySelector('.accordion-button').getAttribute('aria-expanded')
+
+      if (isExpanded) {
+        console.log('Animating in')
+        animateIn()
+      } else {
+        console.log('Animating out')
+        animateOut()
+      }
+
+      function animateOut() {
+        anime({
+          targets: accordionBodyElements,
+          opacity: [1, 0],
+          duration: 0.1,
+        })
+      }
+      function animateIn() {
+        anime({
+          targets: accordionBodyElements,
+          opacity: [0, 1],
+          left: ['-100%', '0'],
+          delay: anime.stagger(100),
+          easing: 'easeOutQuint',
+        })
+      }
+    }
+
     function makeSearchElements(articles) {
       const accordionBody = document
         .querySelector('#flush-collapseSearch')
@@ -92,9 +122,16 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
           `
-          accordionBody.appendChild(newArticle)
+          if (!Hash.findHash(newArticle)) {
+            accordionBody.appendChild(newArticle)
+          }
         })
       }
+      const searchAccordion = document.querySelector('#accordionFlushSearch')
+      searchAccordion.addEventListener('click', () => {
+        accordionAnimator(searchAccordion)
+      })
+      Touch.run('#accordionFlushSearch')
     }
   }
 
@@ -103,7 +140,7 @@ export default class Accordion {
     const accordions = document.querySelectorAll('.container-main .accordion')
 
     // When accordion is clicked i check if it has been clicked before
-    // If not it runs appendData and marks the accordion as clicked
+    // If not, it runs appendData and marks the accordion as clicked
     async function handleAccordionClick(accordion, searchFunction) {
       function accordionSpinnerShow(accordion) {
         const accordionBody = accordion.querySelector('.accordion-body')
@@ -149,7 +186,7 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-            if (Hash.findHash(newArticle)) {
+            if (!Hash.findHash(newArticle)) {
               accordionBody.appendChild(newArticle)
             }
           })
@@ -173,7 +210,7 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-            if (Hash.findHash(newArticle)) {
+            if (!Hash.findHash(newArticle)) {
               accordionBody.appendChild(newArticle)
             }
           })
@@ -199,6 +236,15 @@ export default class Accordion {
       if (isExpanded) {
         animateIn()
       } else {
+        animateOut()
+      }
+
+      function animateOut() {
+        anime({
+          targets: accordionBodyElements,
+          opacity: [1, 0],
+          duration: 0.1,
+        })
       }
       function animateIn() {
         anime({
