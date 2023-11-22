@@ -254,7 +254,7 @@ export default class Accordion {
         </button>
         </h2>
         <div id="flush-collapseSearch" class="accordion-collapse collapse" data-bs-parent="#accordionFlushSearch">
-          <div class="accordion-body"></div>
+          <div class="accordion-body px-0 py-0"></div>
         </div>
       </div>`
       conMain.appendChild(newAccordion)
