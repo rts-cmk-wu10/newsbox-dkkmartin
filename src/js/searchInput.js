@@ -1,3 +1,4 @@
+import anime from 'animejs'
 import Accordion from './accordion'
 import API from './articleFetch'
 
@@ -14,11 +15,27 @@ export default class Searchbar {
 
     inputBtn.addEventListener('click', () => {
       this.search()
+      this.searchSpinnerStart()
     })
 
     input.addEventListener('keypress', (e) => {
       if (e.key !== 'Enter') return
       this.search()
+      this.searchSpinnerStart()
+    })
+  }
+
+  static searchSpinnerStart() {
+    const tl = anime.timeline({
+      easing: 'easeOutSine',
+      duration: 200,
+    })
+    tl.add({
+      targets: '#search-glass',
+      translateY: -35,
+    }).add({
+      targets: '#search-spinner',
+      translateY: [35, 0],
     })
   }
 
