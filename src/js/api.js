@@ -1,3 +1,6 @@
+import Accordion from './accordion'
+import Notifications from './notifications'
+
 export default class API {
   static async searchArticles(filterQuery, field) {
     try {
@@ -6,7 +9,12 @@ export default class API {
       )
       if (response.ok) {
         return response.json()
+      } else if (response.status === 429) {
+        Notifications.requests()
+        Accordion.accordionTimeout()
+        return null
       } else {
+        Notifications.specific(response.statusText, response.status)
         throw new Error(`${response.status} ${response.statusText}`)
       }
     } catch (error) {
@@ -21,7 +29,12 @@ export default class API {
       )
       if (response.ok) {
         return response.json()
+      } else if (response.status === 429) {
+        Notifications.requests()
+        Accordion.accordionTimeout()
+        return null
       } else {
+        Notifications.specific(response.statusText, response.status)
         throw new Error(`${response.status} ${response.statusText}`)
       }
     } catch (error) {
@@ -36,7 +49,12 @@ export default class API {
       )
       if (response.ok) {
         return response.json()
+      } else if (response.status === 429) {
+        Notifications.requests()
+        Accordion.accordionTimeout()
+        return null
       } else {
+        Notifications.specific(response.statusText, response.status)
         throw new Error(`${response.status} ${response.statusText}`)
       }
     } catch (error) {
@@ -51,7 +69,12 @@ export default class API {
       )
       if (response.ok) {
         return response.json()
+      } else if (response.status === 429) {
+        Notifications.requests()
+        Accordion.accordionTimeout()
+        return null
       } else {
+        Notifications.specific(response.statusText, response.status)
         throw new Error(`${response.status} ${response.statusText}`)
       }
     } catch (error) {

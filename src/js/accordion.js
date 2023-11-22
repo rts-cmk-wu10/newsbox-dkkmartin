@@ -1,9 +1,13 @@
 import autoAnimate from '@formkit/auto-animate'
 import Storage from './storage'
-import API from './articleFetch'
+import API from './api'
 import Touch from './touch'
 import Hash from './hash'
 import anime from 'animejs'
+
+function delay(time) {
+  return new Promise((resolve) => setTimeout(resolve, time))
+}
 
 export default class Accordion {
   // Controls which accordions are shown
@@ -21,6 +25,202 @@ export default class Accordion {
     })
 
     autoAnimate(containerMain)
+  }
+
+  static async accordionTimeout() {
+    this.accordionDisabler()
+    await delay(10000)
+    this.accordionRebuilder()
+    this.accordionEnabler()
+  }
+
+  static accordionDisabler() {
+    const main = document.querySelector('main')
+    const searchBar = document.querySelector('.con__search')
+    const accordions = document.querySelectorAll('.container-main .accordion')
+    main.style.pointerEvents = 'none'
+    searchBar.style.opacity = '0.1'
+    accordions.forEach((accordion) => {
+      accordion.querySelector('button').setAttribute('disabled', '')
+      accordion.style.opacity = '0.1'
+    })
+  }
+
+  static accordionEnabler() {
+    const main = document.querySelector('main')
+    const searchBar = document.querySelector('.con__search')
+    main.style.pointerEvents = 'auto'
+    searchBar.style.opacity = '1'
+  }
+
+  static accordionRebuilder() {
+    const initialState = `
+    <div
+      data-query="popular"
+      class="accordion accordion-flush border border-bottom-0 border-start-0 border-end-0 hidden"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button
+            class="accordion-button collapsed card-title text-uppercase"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseOne"
+            aria-expanded="true"
+            aria-controls="flush-collapseOne"
+          >
+            Most popular
+          </button>
+        </h2>
+        <div
+          id="flush-collapseOne"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingOne"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body px-0 py-0"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      data-query="europe"
+      class="accordion accordion-flush border border-start-0 border-end-0 hidden"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+          <button
+            class="accordion-button collapsed card-title text-uppercase"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseTwo"
+            aria-expanded="true"
+            aria-controls="flush-collapseTwo"
+          >
+            europe
+          </button>
+        </h2>
+        <div
+          id="flush-collapseTwo"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingTwo"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body px-0 py-0"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      data-query="health"
+      class="accordion accordion-flush border border-top-0 border-start-0 border-end-0 hidden"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button
+            class="accordion-button collapsed card-title text-uppercase"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseThree"
+            aria-expanded="true"
+            aria-controls="flush-collapseThree"
+          >
+            health
+          </button>
+        </h2>
+        <div
+          id="flush-collapseThree"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingThree"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body px-0 py-0"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      data-query="sport"
+      class="accordion accordion-flush border border-top-0 border-start-0 border-end-0 hidden"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingFourOffcanvas">
+          <button
+            class="accordion-button collapsed card-title text-uppercase"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseFourOffcanvas"
+            aria-expanded="true"
+            aria-controls="flush-collapseFourOffcanvas"
+          >
+            sport
+          </button>
+        </h2>
+        <div
+          id="flush-collapseFourOffcanvas"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingFourOffcanvas"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body px-0 py-0"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      data-query="business"
+      class="accordion accordion-flush border border-top-0 border-start-0 border-end-0 hidden"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingFiveOffcanvas">
+          <button
+            class="accordion-button collapsed card-title text-uppercase"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseFiveOffcanvas"
+            aria-expanded="true"
+            aria-controls="flush-collapseFiveOffcanvas"
+          >
+            business
+          </button>
+        </h2>
+        <div
+          id="flush-collapseFiveOffcanvas"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingFiveOffcanvas"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body px-0 py-0"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      data-query="travel"
+      class="accordion accordion-flush border border-top-0 border-start-0 border-end-0 hidden"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingSixOffcanvas">
+          <button
+            class="accordion-button collapsed card-title text-uppercase"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseSixOffcanvas"
+            aria-expanded="true"
+            aria-controls="flush-collapseSixOffcanvas"
+          >
+            travel
+          </button>
+        </h2>
+        <div
+          id="flush-collapseSixOffcanvas"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingSixOffcanvas"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body px-0 py-0"></div>
+        </div>
+      </div>
+    </div>
+`
+    const main = document.querySelector('.container-main')
+    main.innerHTML = initialState
+    this.run()
   }
 
   static emptyArchiveAccordions() {
@@ -163,6 +363,7 @@ export default class Accordion {
           `[data-query="${accordion.dataset.query}"] .accordion-body`
         )
         const articles = await searchFunction()
+        if (articles === null) return
 
         if (accordion.dataset.query === 'popular') {
           articles.results.forEach((article) => {
