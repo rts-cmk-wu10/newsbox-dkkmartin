@@ -66,10 +66,8 @@ export default class Accordion {
       const isExpanded = accordion.querySelector('.accordion-button').getAttribute('aria-expanded')
 
       if (isExpanded) {
-        console.log('Animating in')
         animateIn()
       } else {
-        console.log('Animating out')
         animateOut()
       }
 
@@ -122,7 +120,7 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
           `
-          if (!Hash.findHash(newArticle)) {
+          if (Hash.findHash(newArticle)) {
             accordionBody.appendChild(newArticle)
           }
         })
@@ -186,7 +184,7 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-            if (!Hash.findHash(newArticle)) {
+            if (Hash.findHash(newArticle)) {
               accordionBody.appendChild(newArticle)
             }
           })
@@ -210,7 +208,7 @@ export default class Accordion {
             <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
           </div>
         `
-            if (!Hash.findHash(newArticle)) {
+            if (Hash.findHash(newArticle)) {
               accordionBody.appendChild(newArticle)
             }
           })
