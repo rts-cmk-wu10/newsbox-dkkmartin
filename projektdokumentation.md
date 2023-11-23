@@ -8,7 +8,7 @@
 
 ##### Uddannelsessted: Roskilde Tekniske Skole
 
-[Link til (min applikaton)](http://nogether.netlify.com/)
+[Link til (min applikaton)](https://newsbox.martinbruun.dk/)
 
 ## Teknologier
 
