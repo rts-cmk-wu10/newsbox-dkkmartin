@@ -4,6 +4,8 @@ import API from './api'
 import Touch from './touch'
 import Hash from './hash'
 import anime from 'animejs'
+import newspaperIcon from '../assets/icons/TwemojiNewspaper.svg'
+import inboxIcon from '../assets/icons/OcticonInbox16.svg'
 
 function delay(time) {
   return new Promise((resolve) => setTimeout(resolve, time))
@@ -309,7 +311,7 @@ export default class Accordion {
             <img class="rounded-circle object-fit-fill" src="${
               article.multimedia[17]?.url
                 ? `https://www.nytimes.com/${article.multimedia[17]?.url}`
-                : './assets/icons/TwemojiNewspaper.svg'
+                : newspaperIcon
             }" alt="Thumbnail for article"></img>
            <div>
               <h3 class="card-title">${article.headline.main}</h3>
@@ -317,7 +319,7 @@ export default class Accordion {
             </div>
           </a>
           <div class="accordion-article-swipeleft">
-            <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
+            <img src=${inboxIcon} alt="Archieve icon"></img>
           </div>
           `
           if (Hash.findHash(newArticle)) {
@@ -374,7 +376,7 @@ export default class Accordion {
             <img class="rounded-circle object-fit-fill" src="${
               article.media[0]?.['media-metadata'][0].url
                 ? article.media[0]?.['media-metadata'][0].url
-                : './assets/icons/TwemojiNewspaper.svg'
+                : newspaperIcon
             }" alt="Thumbnail for article"></img>
             <div>
               <h3 class="card-title">${article.title}</h3>
@@ -382,7 +384,7 @@ export default class Accordion {
             </div>
           </a>
           <div class="accordion-article-swipeleft">
-            <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
+            <img src=${inboxIcon} alt="Archieve icon"></img>
           </div>
         `
             if (Hash.findHash(newArticle)) {
@@ -398,7 +400,7 @@ export default class Accordion {
             <img class="rounded-circle object-fit-fill" src="${
               article.multimedia[17]?.url
                 ? `https://www.nytimes.com/${article.multimedia[17]?.url}`
-                : './assets/icons/TwemojiNewspaper.svg'
+                : newspaperIcon
             }" alt="Thumbnail for article"></img>
             <div>
               <h3 class="card-title">${article.headline.main}</h3>
@@ -406,7 +408,7 @@ export default class Accordion {
             </div>
           </a>
           <div class="accordion-article-swipeleft">
-            <img src="./assets/icons/OcticonInbox16.svg" alt="Archieve icon"></img>
+            <img src=${inboxIcon} alt="Archieve icon"></img>
           </div>
         `
             if (Hash.findHash(newArticle)) {

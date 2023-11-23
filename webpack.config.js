@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const autoprefixer = require('autoprefixer')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -19,6 +19,13 @@ module.exports = {
   plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
   module: {
     rules: [
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/icons/[name][ext]',
+        },
+      },
       {
         test: /\.(scss)$/,
         use: [
@@ -47,4 +54,4 @@ module.exports = {
       },
     ],
   },
-};
+}

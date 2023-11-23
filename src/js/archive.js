@@ -3,6 +3,7 @@ import Storage from './storage'
 import Hash from './hash'
 import autoAnimate from '@formkit/auto-animate'
 import Touch from './touch'
+import trashIcon from '../assets/icons/MaterialSymbolsDeleteForeverOutline.svg'
 
 export default class Archive {
   // Saves a object with an article to localstorage
@@ -60,8 +61,7 @@ export default class Archive {
     const newDiv = document.createElement('div')
 
     newDiv.classList.add('accordion-article-swipeleft--delete')
-    newDiv.innerHTML =
-      '<img src="./assets/icons/MaterialSymbolsDeleteForeverOutline.svg" alt="Delete icon">'
+    newDiv.innerHTML = `<img src=${trashIcon} alt="Delete icon">`
 
     newArticle.classList.add('border-bottom')
     newArticle.innerHTML = article
