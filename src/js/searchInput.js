@@ -30,7 +30,7 @@ export default class Searchbar {
   static searchSpinnerStart() {
     const tl = anime.timeline({
       easing: 'easeOutSine',
-      duration: 50,
+      duration: 150,
     })
     tl.add({
       targets: '#search-glass',
@@ -38,21 +38,26 @@ export default class Searchbar {
     }).add({
       targets: '#search-spinner',
       translateY: [0, -43],
+      opacity: [0, 1],
     })
   }
 
   static searchSpinnerStop() {
     const tl = anime.timeline({
       easing: 'easeOutSine',
-      duration: 50,
+      duration: 150,
     })
     tl.add({
       targets: '#search-glass',
       translateY: [-35, 0],
-    }).add({
-      targets: '#search-spinner',
-      translateY: [-43, 0],
-    })
+    }).add(
+      {
+        targets: '#search-spinner',
+        translateY: [-43, 0],
+        opacity: [1, 0],
+      },
+      '-=150'
+    )
   }
 
   static run() {
