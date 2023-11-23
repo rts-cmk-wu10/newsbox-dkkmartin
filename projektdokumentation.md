@@ -37,11 +37,20 @@ Nem måde at lave flotte notifikationer
 
 #### Auto-animate
 
-Auto animate animere automatisk alle childs af et parent. Den animere når et child bliver tilføjet, fjernet og rykket
+Auto animate animere automatisk alle childs af det parent man sætter den på.
+Den animere når et child bliver tilføjet, fjernet og rykket.
 
 ### Argumentation for de valg du selvstændigt har truffet under løsningen af opgaven
 
 (Hvilke overvejelser har du gjort dig, fx. i forbindelse med dit valg af animationer)
+
+Mine overvejelser var blandt andet:
+
+- Selve siden skulle se ens ud med designet jeg har fået.
+- Alle tingene på siden skulle virke og virke godt.
+- De hentede artikler skulle ikke kune blive vist for brugeren hvis en artikel allerede er blevet gemt.
+- Selve siden skulle være en SPA, så ingen refreshes på siden.
+- Bruge vidt så muligt lightweight npm pakker.
 
 ---
 
@@ -49,20 +58,16 @@ Auto animate animere automatisk alle childs af et parent. Den animere når et ch
 
 (Hvad gik godt. Hvor prioriterede du forkert. Klagesange fra de varme lande om halvfærdigt produkt, på grund af manglende nattesøvn, fordi din kæle-skildpadde havde tandpine er IKKE interessante.)
 
+Jeg synes selv at det hele er gået meget godt. Jeg ville ikke sige at jeg har prioriteret noget forkert da jeg har lavet alt der skulles og mere til.
+
+En ting jeg nok burde have lavet var en swipe function til at refreshe de accordions nu når jeg gik efter at lave det som en SPA
+
 ---
 
 ### En beskrivelse af særlige punkter til bedømmelse
 
 (er der en særlig detalje som du synes din underviser bør lægge mærke til når dit projekt evalueres)
 
-Du kan vise kode i markdown på følgende måder:
+Prøv at spamme API requests ved at åbne accordions og søge mange gange på kort tid.
 
-```js
-function myFunction() {}
-```
-
-```css
-.my__CSSrule {
-  property: value;
-}
-```
+Lig mærke til at hver gemt artikel ikke bliver vist igen når man åbner en accordion (Hvis en accordion er blevet åben så skal der refreshes før den ville lave API requests igen)
